@@ -1,9 +1,6 @@
 package br.com.britolmbs.screenmatch.principal;
 
-import br.com.britolmbs.screenmatch.model.DadosEpisodio;
-import br.com.britolmbs.screenmatch.model.DadosSerie;
-import br.com.britolmbs.screenmatch.model.DadosTemporada;
-import br.com.britolmbs.screenmatch.model.Episodio;
+import br.com.britolmbs.screenmatch.model.*;
 import br.com.britolmbs.screenmatch.service.ConsumoApi;
 import br.com.britolmbs.screenmatch.service.ConverteDados;
 
@@ -90,7 +87,13 @@ public class Principal {
         temporadas.forEach(System.out::println);
         }
         private void  listarSeriesBuscadas(){
-        dadosSeries.forEach(System.out::println);
+        List<Serie> series = new ArrayList<>();
+        series = dadosSeries.stream()
+                        .map(d -> new Serie(d))
+                                .collect(Collectors.toList());
+       series.stream()
+               .sorted(Comparator.comparing(Serie::getGenero))
+               .forEach(System.out::println);
         }
 }
 
